@@ -16,8 +16,8 @@ const ConsultPopup = ({ onClose }) => {
   const servicesList = [
     "Brand new website",
     "Revamp my website",
-    "Website sustomized plugin",
-    "Website sustomized theme",
+    "Website customized plugin",
+    "Website customized theme",
     "Website maintenance services"
   ];
 
