@@ -35,7 +35,7 @@ const CSAutowriter = () => {
       {/* PortfolioDetailsArea */}
       {/* <PortfolioDetailsArea /> */}
       <CSAutowriterInner/>
-    <div className="space"><HeroSection/></div>
+    {/* <div className="space"><HeroSection/></div> */}
 
       
       <div className="space">
