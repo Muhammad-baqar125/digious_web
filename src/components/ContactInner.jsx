@@ -506,7 +506,7 @@ const ContactInner = () => {
                         e.target.style.borderColor = "#2976c0";
                       }}
                     >
-                      Sumbit
+                      Submit
                     </button>
                   </div>
 
