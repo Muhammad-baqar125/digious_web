@@ -115,6 +115,9 @@ const ContactInner = () => {
       budget: selectedBudget,
     };
 
+    // Debug: log the parameters being sent
+    console.log("Sending templateParams:", templateParams);
+
     emailjs
       .send(
         "service_3bto3oq",
@@ -145,6 +148,8 @@ const ContactInner = () => {
         }
       );
   };
+
+
 
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
