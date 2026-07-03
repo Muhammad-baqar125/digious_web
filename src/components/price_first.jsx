@@ -2,24 +2,53 @@ import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 // import ReCAPTCHA from "react-google-recaptcha";
 
-const ConsultPopup = ({ onClose }) => {
+emailjs.init("HAl4zdlBwBMUTcKQg");
+
+const ConsultPopup = ({ onClose, selectedPackage }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [selectedBudget, setSelectedBudget] = useState("");
+ useEffect(() => {
+  if (selectedPackage) {
+    setSelectedServices([]);
+    setSelectedBudget(selectedPackage.price);
+  }
+}, [selectedPackage]);
   const [message, setMessage] = useState("");
   const [recaptchaValue, setRecaptchaValue] = useState("");
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState({});
 
-  const servicesList = [
+  const serviceOptions = {
+  "Web Development": [
     "Brand new website",
     "Revamp my website",
     "Website customized plugin",
     "Website customized theme",
-    "Website maintenance services"
-  ];
+    "Website maintenance services",
+  ],
+
+  "Graphic Designing": [
+    "Logo Design",
+    "Business Card Design",
+    "Social Media Post Design",
+    "Banner Design",
+    "Brand Identity Design",
+  ],
+
+  "Digital Marketing": [
+    "SEO Optimization",
+    "Google Ads Management",
+    "Facebook Ads Management",
+    "Social Media Marketing",
+    "Content Marketing",
+  ],
+};
+
+const servicesList =
+  serviceOptions[selectedPackage?.service] || [];
 
   const budgetList = [
     "<5K", "5-10K", "10-20K", ">20K", "Not Sure"
@@ -71,9 +100,7 @@ const ConsultPopup = ({ onClose }) => {
       newErrors.services = "Please select at least one service";
     }
 
-    if (!selectedBudget) {
-      newErrors.budget = "Please select a budget range";
-    }
+   
 
     if (message.trim() && message.trim().length < 10) {
       newErrors.message = "Message must be at least 10 characters if provided";
@@ -92,36 +119,32 @@ const ConsultPopup = ({ onClose }) => {
 
     const templateParams = {
       full_name: fullName,
-      email: email,
+      email,
       phone_number: phone,
-      industry: selectedServices.join(", "),
-      budget: selectedBudget,
+      package_name: selectedPackage?.service || "General Inquiry",
+      package_price: selectedPackage?.price || "",
+      interested_in: selectedServices.join(", "),
       project_description: message,
+      message,
+      service: selectedPackage?.service || "General Inquiry",
+      budget: selectedBudget || "",
     };
 
     emailjs
-      .send(
-        "service_i3wnffw",
-        "template_mxzh1eg",
-        templateParams,
-        "fDcemrov779Sryl9x"
-      )
-      .then(
-        (response) => {
-          setStatus("Success! Your consultation request has been sent.");
-          setFullName("");
-          setEmail("");
-          setPhone("");
-          setSelectedServices([]);
-          setSelectedBudget("");
-          setMessage("");
-          setRecaptchaValue("");
-          setErrors({});
-        },
-        (error) => {
-          setStatus("Failed to send email. Please try again.");
-        }
-      );
+      .send("service_k6s4jia", "template_poxzwik", templateParams, "HAl4zdlBwBMUTcKQg")
+      .then(() => {
+        setStatus("Success! Your consultation request has been sent.");
+        setFullName("");
+        setEmail("");
+        setPhone("");
+        setSelectedServices([]);
+        setSelectedBudget("");
+        setMessage("");
+        setErrors({});
+      })
+      .catch((error) => {
+        setStatus(error?.text || error?.message || "Failed to send email.");
+      });
   };
 
   useEffect(() => {
@@ -407,61 +430,37 @@ const ConsultPopup = ({ onClose }) => {
                       )}
                     </div>
 
-                    {/* BUDGET TITLE */}
                     <div className="col-12">
-                      <div className="font-futura" style={responsiveStyles.sectionTitle}>
-                        Your Budget <span style={{ color: "#2976c0" }}>*</span>
-                      </div>
-                    </div>
+  <div className="font-futura" style={responsiveStyles.sectionTitle}>
+    Selected Package
+  </div>
 
-                    {/* BUDGET RADIO BUTTONS - 2 COLUMNS ON MOBILE, 3 COLUMNS ON DESKTOP */}
-                    <div className="col-12" style={{ padding: 0 }}>
-                      <div className="row" style={{ margin: 0 }}>
-                        {budgetList.map((budget, index) => (
-                          <div 
-                            className={isMobile ? "col-6" : "col-md-3"} 
-                            style={{ 
-                              padding: isMobile ? "3px" : "5px",
-                              marginBottom: "5px"
-                            }} 
-                            key={index}
-                          >
-                            <label
-                              style={{
-                                ...responsiveStyles.budgetLabel,
-                                border: `1px solid ${
-                                  selectedBudget === budget 
-                                    ? "#2976c0" 
-                                    : errors.budget 
-                                      ? "#ff6b6b" 
-                                      : "rgba(255,255,255,0.3)"
-                                }`,
-                                backgroundColor: selectedBudget === budget 
-                                  ? "rgba(41, 118, 192, 0.2)" 
-                                  : "transparent",
-                              }}
-                            >
-                              <input
-                                type="radio"
-                                name="budget"
-                                className="d-none"
-                                checked={selectedBudget === budget}
-                                onChange={() => handleBudgetChange(budget)}
-                              />
-                              <span style={{ marginRight: "8px", fontSize: isMobile ? "16px" : "16px" }}>
-                                {selectedBudget === budget ? "●" : "○"}
-                              </span>
-                              <span style={{ fontSize: isMobile ? "13px" : "14px" }}>{budget}</span>
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                      {errors.budget && (
-                        <small style={{ color: "#ff6b6b", marginTop: "10px", display: "block", fontSize: "12px", paddingLeft: "5px" }}>
-                          {errors.budget}
-                        </small>
-                      )}
-                    </div>
+  <div
+    style={{
+      padding: "15px",
+      borderRadius: "12px",
+      background: "rgba(255,255,255,.08)",
+      border: "1px solid rgba(255,255,255,.2)",
+      color: "#fff",
+      marginBottom: "20px",
+    }}
+  >
+    <h5 style={{ marginBottom: "10px", color: "#fff" }}>
+      {selectedPackage?.service}
+    </h5>
+
+    <p
+      style={{
+        margin: 0,
+        fontSize: "20px",
+        color: "#2976c0",
+        fontWeight: "700",
+      }}
+    >
+      {selectedPackage?.price}
+    </p>
+  </div>
+</div>
 
                     {/* MESSAGE - FULL WIDTH */}
                     <div className="col-12 form-group" style={{ 
