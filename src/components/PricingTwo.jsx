@@ -5,13 +5,29 @@ import ConsultPopup from "../components/price_first";
 
 const PricingTwo = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState({
+  service: "",
+  price: "",
+});
 
-  const openPopup = () => setIsPopupOpen(true);
+  const openPopup = (service, price) => {
+  setSelectedPackage({
+    service,
+    price,
+  });
+
+  setIsPopupOpen(true);
+};
   const closePopup = () => setIsPopupOpen(false);
 
   return (
     <section className="bg-dark2">
-      {isPopupOpen && <ConsultPopup onClose={closePopup} />}
+      {isPopupOpen && (
+  <ConsultPopup
+    onClose={closePopup}
+    selectedPackage={selectedPackage}
+  />
+)}
       <div
         className="pricing-area-3 space-top"
         style={{
@@ -76,7 +92,10 @@ const PricingTwo = () => {
                       </li>
                     </ul>
                   </div>
-                  <Link onClick={openPopup} className="global-btn">
+                  <Link
+  onClick={() => openPopup("Web Development", "$199")}
+  className="global-btn"
+>
                     Get Quote Now{" "}
                     <img src="/assets/img/icon/right-icon2.svg" alt="arrow" />
                   </Link>
@@ -117,7 +136,10 @@ const PricingTwo = () => {
                       </li>
                     </ul>
                   </div>
-                  <Link onClick={openPopup} className="global-btn">
+                  <Link
+  onClick={() => openPopup("Graphic Designing", "$99")}
+  className="global-btn"
+>
                     Get Quote Now{" "}
                     <img src="/assets/img/icon/right-icon2.svg" alt="arrow" />
                   </Link>
@@ -158,7 +180,10 @@ const PricingTwo = () => {
                       </li>
                     </ul>
                   </div>
-                  <Link onClick={openPopup} className="global-btn">
+                  <Link
+  onClick={() => openPopup("Digital Marketing", "$299")}
+  className="global-btn"
+>
                     Get Quote Now{" "}
                     <img src="/assets/img/icon/right-icon2.svg" alt="arrow" />
                   </Link>
