@@ -75,7 +75,7 @@ const FooterFour = () => {
                                             <i className="fas fa-phone-alt text-white" />
                                             <div className="contact-grid-details">
                                                 <h6>
-                                                    <Link to="tel:+19133745577">(913)374-5577</Link>
+                                                    <Link to="tel:+12342596052">(+1)234-2596052</Link>
                                                     <p />
                                                 </h6>
                                             </div>
