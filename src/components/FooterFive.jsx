@@ -71,7 +71,7 @@ const FooterFive = () => {
                       <i className="fas fa-phone-alt" />
                       <div className="contact-grid-details">
                         <h6>
-                          <Link to="#">(913)374-5577</Link>
+                          <Link to="#">((+1)234-2596052</Link>
                         </h6>
                       </div>
                     </div>
