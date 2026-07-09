@@ -181,7 +181,7 @@ const ContactInner = () => {
                     <h6 className="contact-info_title">Phone</h6>
                     <p className="contact-info_text">
                       <span>
-                        <a href="tel:+19133745577">US: (913)374-5577</a>
+                        <a href="tel:+12342596052">US: ((+1)234-2596052</a>
                       </span> <br />
                       <span>
                         <a href="https://api.whatsapp.com/send?phone=61431066995">
