@@ -3,7 +3,7 @@ import React from "react";
 const PortfolioUIUXInner = () => {
   return (
     <div className="portfolio-area-1 space-top space-bottom">
-      <div className="shadow-shape-right" />
+      {/* <div className="shadow-shape-right" /> */}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8">
